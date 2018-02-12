@@ -1,0 +1,26 @@
+﻿@model LaughingCilantro.ObjectModel.Objects.FinancialAccount
+
+@{
+    ViewBag.Title = "Details";
+}
+
+@Scripts.Render("~/Scripts/angular/controllers/TransactionController.js")
+
+<div ng-app="transactionsApp" ng-controller="TransactionsController as controller">
+
+    <h2>Upload Transactions</h2>
+
+    @using (Html.BeginForm("UploadTransactions", "FinancialAccount", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="file" name="TransactionFile" />
+        <input type="hidden" name="AccountId" value="@Model.Id" />
+        <br />
+        <input type="submit" value="Upload" class="btn" />
+    }
+
+    <p>
+        @Html.ActionLink("Monthly Details", "MonthlyDetails", new { id = Model.Id }) |
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</div>

@@ -1,0 +1,40 @@
+﻿@model LaughingCilantro.ObjectModel.Objects.FinancialAccount
+
+@{
+    ViewBag.Title = "Details";
+}
+
+@Scripts.Render("~/Scripts/angular/controllers/TransactionController.js")
+
+<div ng-app="transactionsApp" ng-controller="TransactionsController as controller">
+
+    <h2>Summary of Transactions in {{controller.lastMonth.name }}</h2>
+    <ul>
+        <li><strong>Net Income:</strong> {{controller.lastMonth.totalIncome - controller.lastMonth.totalExpenses | currency}}</li>
+        <li><strong>Gross Income:</strong> {{controller.lastMonth.totalIncome | currency}}</li>
+        <li><strong>Expenses:</strong> {{controller.lastMonth.totalExpenses | currency}}</li>
+    </ul>
+
+    <h2>All transactions in {{controller.lastMonth.name}}</h2>
+
+    <p>{{ controller.transactions.length }} total transactions:</p>
+
+    <table ng-table="controller.tableParams" class="table" show-filter="true">
+        <tr ng-repeat="transaction in $data">
+            <td title="'Transaction'" filter="{ OriginalText: 'text' }" sortable="'OriginalText'">
+                {{transaction.OriginalText}}
+            </td>
+            <td title="'Amount'" sortable="'Amount'">
+                {{transaction.Amount | currency}}
+            </td>
+            <td title="'Date'" sortable="'TransactionDateUtc'">
+                {{transaction.TransactionDateUtc | date}}
+            </td>
+        </tr>
+    </table>
+
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</div>

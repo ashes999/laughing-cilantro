@@ -1,0 +1,1 @@
+﻿Files are temporarily uploaded here when a user uploads account transactions.

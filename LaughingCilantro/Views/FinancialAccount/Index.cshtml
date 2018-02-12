@@ -1,0 +1,15 @@
+﻿@model IEnumerable<LaughingCilantro.ObjectModel.Objects.FinancialAccount>
+
+@{
+    ViewBag.Title = "My Accounts";    
+}
+
+<h2>My Accounts</h2>
+<ul>
+    @foreach (var account in Model)
+    {
+        <li>@Html.ActionLink(account.Name, "Details", new { id = account.Id }) (@Enum.GetName(account.AccountType.GetType(), account.AccountType))</li>
+    }
+</ul>
+
+@Html.ActionLink("Create", "Create")
